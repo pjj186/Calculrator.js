@@ -1,0 +1,90 @@
+계산기 자바스크립트 코드에 대한 노트
+
+#### 변수 선언 부 ####
+
+##
+const numbers = Array.from(document.querySelectorAll(".js-number"));
+const operations = Array.from(document.querySelectorAll(".js-operation"));
+
+document.querySelectorAll(); // = 특정 선택자를 가진 모든 요소를 배열로 가져오는 메서드
+Array.from(); // = Array.from() 메서드는 새 Array를 만들때 사용한다.
+
+왜 이런식으로 변수에 저장을 했냐?
+
+--> querySelectorAll() 을 이용하여 반환되는 것들은 NodeList 라고한다.
+
+이 NodeList 는 Array와 비슷해보이지만 Array가 아니다.
+
+따라서 Array.from() 을 해줌으로써 querySelectorAll()을 이용해 반환된 NodeList를
+
+Array로 바꿔서 저장해주는것.
+##
+
+#### 전체 동작 ####
+
+숫자를 클릭하면, handleNumberClick(e) 함수를 호출한다.
+
+handleNumberClick(e) 함수는 내부에 clickedNum 변수를 통해, HTML에서 클릭한 숫자를 저장한다. (문자열)
+
+그리고, firstDone 변수를 이용해서 첫번째 값을 입력했는지 체크한다.
+
+처음엔 무조건 false 이기때문에 if(!firstDone) 조건을 만족시킨다.
+
+전역변수 firstValue 에 clickedNum 에 저장된 값들이 누적된다. (문자열로로)
+
+(누적인 이유는 숫자를 클릭할때마다  handleNumberClick(e) 함수가 호출되는것이고, 누를때마다 clickedNum 의 값이 누른 숫자로 갱신된다.)
+(if 문 내부에서는 += 연산자로  전역변수 firstValue에 계속 이어붙인다.)
+
+첫번째 값을 입력하고, 연산자를 누르면 handleOperationClick(e) 함수가 실행된다.
+
+이 함수는 clickedOperation 변수에 HTML에서 클릭한 연산자를 저장한다. (문자열로)
+
+그리고 첫번째 if문 (!firstDone) 은 최초에 무조건 실행시킨다. 그리고 이 if문 안에서 firstDone = true로 바꿔줌으로써, 첫번째 값 입력이 완료됬다는걸 체크한다.
+
+(이후에 firstDone 을 다시 false로 만드는 경우는 reset을 제외하고는 없다.)
+
+그 후 전역변수 currentOperation 에 clickedOperation 값을 저장한다. (문자열로)
+
+이 후 두번째 값을 입력하기 위해 숫자를 클릭하면 handleNumberClick(e) 가 호출되고, 이제는 firstDone = true 이기 때문에
+
+else 쪽으로 빠지게된다.
+
+else 문의 동작도 if문과 다를건 없다. 
+
+secondValue 값에 입력한 숫자를 저장하고, 화면에 띄운다.
+그리고 secondDone 을 true로 체크해준다.
+
+여기서 다시 +,-,*,/ 와 같은 연산자를 누르게되면? 
+
+(현재 firstDone, secondDone 둘 다 true인 상태)
+
+handleOperationClick(e) 함수를 실행하게 될 것이고 다음 조건문으로 빠지게 될것이다.
+
+if(firstDone && secondDone) {
+    calculate();
+}
+
+calculate 함수는 계산결과를 나타내는 함수인데,
+
+내부의 operation 변수에 doOperation() 함수의 반환값을 저장한다.
+
+doOperation() 함수는 연산을 해주는 함수이다.
+
+입력받은 firstValue, secondValue 를 정수형으로 parse 하고
+
+currentOperation 변수에 저장된 연산자를 토대로 연산을 진행하고, 값을 리턴한다. (operation 변수에)
+
+operation 변수를 result.innerHTML 에 저장함으로써, 계산기의 화면에는 결과값이 나오고
+
+firstValue 에도 operation 값을 저장해준다.
+
+그 이후는, 계산을 이어서 이어나갈 수 도 있기 때문이다. secondValue = "", secondDone = false 로 해줌으로써 두번째 값은 초기화를 해준다.
+
+= 첫번째 값에는 먼저 계산한 값이 이미 저장되있기때문에, 계산을 이어나가기 위해선 두번째 값만 초기화 해야 하는것.
+
+
+함수의 전체적인 동작은
+
+handleNumberClick(e) -> handleOperationClick(e) -> handleNumberClick(e) -> handleOperationClick(e) or handleEqualsClick()
+
+이런식으로 동작하는 것이다.

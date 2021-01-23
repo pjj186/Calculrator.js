@@ -1,0 +1,137 @@
+body {
+    font-family: sans-serif;
+  }
+  
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    font-weight: 600;
+    font-size: 25px;
+    border-radius: 10px;
+    transition: opacity 0.2s linear;
+  }
+  .reset:hover,
+  .operation:hover,
+  .js-equals:hover,
+  .js-number:hover {
+    animation: shadow-drop-2-center 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  .reset:active,
+  .operation:active,
+  .js-equals:active,
+  .js-number:active {
+    opacity: 0.5;
+  }
+  
+  .calculator {
+    position: absolute;
+    top: 25%;
+    left: 40%;
+    width: 300px;
+    height: 400px;
+    background-color: rgba(80, 80, 80, 0.5);
+    padding: 20px;
+    border-radius: 30px;
+  }
+  
+  .screen_row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    margin-bottom: 12px;
+  }
+  
+  .result {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 5px;
+    width: 80%;
+    height: 60px;
+    background-color: #d2dae2;
+    border-radius: 10px;
+    margin-right: 20px;
+    text-align: right;
+    font-family: "dot";
+    font-size: 40px;
+    color: #b33939;
+  }
+  
+  .reset {
+    width: 20%;
+    height: 60px;
+    background-color: #eeeced;
+  }
+  
+  .number_row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    margin-bottom: 12px;
+  }
+  
+ .js-number {
+    height: 60px;
+    width: 25%;
+    background-color: #eeeced;
+    margin-right: 20px;
+  }
+  
+  .zero {
+    height: 60px;
+    width: 50%;
+    background-color: #eeeced;
+    margin-right: 20px;
+  }
+  
+  .operation {
+    height: 60px;
+    width: 25%;
+    background-color: #9e6c4b;
+  }
+  
+  .js-equals {
+    height: 60px;
+    width: 25%;
+    background-color: #9e6c4b;
+    margin-right: 20px;
+  }
+  
+  #bg {
+    background-image: url("../images/wbbbg.png");
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+    top: 0;
+    animation: fadeIn 0.5s linear;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  
+  @font-face {
+    src: url(../fonts/Square-Dot-Matrix.ttf);
+    font-family: "dot";
+  }
+  
+  @keyframes shadow-drop-2-center {
+    0% {
+      transform: translateZ(0);
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+    100% {
+      transform: translateZ(50px);
+      box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+    }
+  }
+  
+  .shadow-drop-2-center {
+    animation: shadow-drop-2-center 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  
